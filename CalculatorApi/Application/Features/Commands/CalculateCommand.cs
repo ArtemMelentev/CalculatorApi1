@@ -4,5 +4,5 @@ public class CalculateCommand
 {
     public double FirstNumber { get; set; }
     public double SecondNumber { get; set; }
-    public string Operation { get; set; } = string.Empty; // "+", "-", "*", "/"
+    public string Operation { get; set; } = string.Empty;
 }

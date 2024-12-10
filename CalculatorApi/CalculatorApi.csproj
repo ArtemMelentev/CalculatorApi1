@@ -26,7 +26,15 @@
 
   <ItemGroup>
     <Folder Include="Application\Features\Queries\" />
+    <Folder Include="Application\Interfaces\" />
+    <Folder Include="Application\Services\" />
+    <Folder Include="Domain\Entities\" />
+    <Folder Include="Domain\Enums\" />
+    <Folder Include="Infrastructure\Logging\" />
+    <Folder Include="Infrastructure\Persistence\DbContextes\" />
     <Folder Include="Infrastructure\Persistence\Migrations\" />
+    <Folder Include="WebApi\Extensions\" />
+    <Folder Include="WebApi\Middleware\" />
   </ItemGroup>
 
   <ItemGroup>
