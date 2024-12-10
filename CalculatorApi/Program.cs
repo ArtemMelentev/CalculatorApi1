@@ -1,5 +1,6 @@
 using CalculatorApi.Application.Features.Commands;
 using CalculatorApi.Application.Validators;
+using CalculatorApi.Infrastructure.DB;
 using CalculatorApi.Infrastructure.Persistence.DbContextes;
 using CalculatorApi.WebApi.Extensions;
 using CalculatorApi.WebApi.Middleware;
@@ -25,7 +26,7 @@ builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(typeof(CalculateCommand).Assembly);
 });
-builder.Services.AddDbContext<AppDbContext>(options =>
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddControllers().AddFluentValidation(fv =>

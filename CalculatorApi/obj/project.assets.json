@@ -4959,11 +4959,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Пользователь\\CalculatorApi\\CalculatorApi.csproj",
+      "projectUniqueName": "C:\\Users\\Пользователь\\CalculatorApi1\\CalculatorApi\\CalculatorApi.csproj",
       "projectName": "CalculatorApi",
-      "projectPath": "C:\\Users\\Пользователь\\CalculatorApi\\CalculatorApi.csproj",
+      "projectPath": "C:\\Users\\Пользователь\\CalculatorApi1\\CalculatorApi\\CalculatorApi.csproj",
       "packagesPath": "C:\\Users\\Пользователь\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Пользователь\\CalculatorApi\\obj\\",
+      "outputPath": "C:\\Users\\Пользователь\\CalculatorApi1\\CalculatorApi\\obj\\",
       "projectStyle": "PackageReference",
       "UsingMicrosoftNETSdk": false,
       "fallbackFolders": [

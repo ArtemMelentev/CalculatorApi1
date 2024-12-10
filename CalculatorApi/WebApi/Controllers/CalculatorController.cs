@@ -1,6 +1,6 @@
 ﻿using CalculatorApi.Application.Features.Commands;
-using MediatR;
-using Microsoft.AspNetCore.Authorization;
+using CalculatorApi.Infrastructure.DB;
+using CalculatorApi.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CalculatorApi.WebApi.Controllers;
@@ -8,18 +8,65 @@ namespace CalculatorApi.WebApi.Controllers;
 [ApiController]
 public class CalculatorController : ControllerBase
 {
-    [HttpPost("calculate")]
-    public IActionResult Calculate([FromBody] CalculateCommand command)
+    private readonly ApplicationDbContext _context;
+
+    public CalculatorController(ApplicationDbContext context)
     {
-        double result = command.Operation switch
+        _context = context;
+    }
+
+    [HttpPost("calculate")]
+    public async Task<IActionResult> Calculate([FromBody] CalculateCommand command)
+    {
+        /*
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        */
+
+        try
+        {
+            var result = PerformCalculation(command);
+            
+            // Создаем запись для сохранения в БД
+            var calculationRecord = new CalculationResult
+            {
+                FirstNumber = command.FirstNumber,
+                SecondNumber = command.SecondNumber,
+                Operation = command.Operation,
+                Result = result
+            };
+            
+            /*var calculationRecord = new CalculationResult
+            {
+                FirstNumber = 1,
+                SecondNumber = 2,
+                Operation = "-",
+                Result = 1
+            };*/
+
+            await _context.CalculationRecords.AddAsync(calculationRecord);
+            await _context.SaveChangesAsync(); // Сохраняем в БД
+            
+            return Ok(new { result });
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { error = ex.Message });
+        }
+    }
+
+    private double PerformCalculation(CalculateCommand command)
+    {
+        return command.Operation switch
         {
             "+" => command.FirstNumber + command.SecondNumber,
             "-" => command.FirstNumber - command.SecondNumber,
             "*" => command.FirstNumber * command.SecondNumber,
-            "/" => command.FirstNumber / command.SecondNumber,
-        _ => throw new InvalidOperationException("Invalid operation1")
+            "/" when command.SecondNumber != 0 => command.FirstNumber / command.SecondNumber,
+            "/" => throw new InvalidOperationException("Division by zero is not allowed."),
+            _ => throw new InvalidOperationException("Invalid operation.")
         };
-
-        return Ok(new { Result = result });
     }
 }
