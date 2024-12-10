@@ -9,7 +9,7 @@ public class ApplicationDbContext : DbContext
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options) { }
 
-    public DbSet<CalculationResult> CalculationRecords { get; set; }
+    public DbSet<CalculationResultModels> CalculationRecords { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

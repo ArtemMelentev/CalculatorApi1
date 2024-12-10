@@ -1,6 +1,6 @@
 ﻿namespace CalculatorApi.Models;
 
-public class CalculationResult
+public class CalculationResultModels
 {
     public int Id { get; set; } // Первичный ключ
     public double FirstNumber { get; set; }

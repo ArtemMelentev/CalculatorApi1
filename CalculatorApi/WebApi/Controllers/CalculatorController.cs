@@ -18,36 +18,20 @@ public class CalculatorController : ControllerBase
     [HttpPost("calculate")]
     public async Task<IActionResult> Calculate([FromBody] CalculateCommand command)
     {
-        /*
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-        */
-
         try
         {
             var result = PerformCalculation(command);
             
-            // Создаем запись для сохранения в БД
-            var calculationRecord = new CalculationResult
+            var calculationRecord = new CalculationResultModels
             {
                 FirstNumber = command.FirstNumber,
                 SecondNumber = command.SecondNumber,
                 Operation = command.Operation,
                 Result = result
             };
-            
-            /*var calculationRecord = new CalculationResult
-            {
-                FirstNumber = 1,
-                SecondNumber = 2,
-                Operation = "-",
-                Result = 1
-            };*/
 
             await _context.CalculationRecords.AddAsync(calculationRecord);
-            await _context.SaveChangesAsync(); // Сохраняем в БД
+            await _context.SaveChangesAsync();
             
             return Ok(new { result });
         }
